@@ -338,7 +338,7 @@ https://www.tooplate.com/view/2126-antique-cafe
     <script src="js/parallax.min.js"></script>
     <script src="js/jquery.singlePageNav.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
-    <script>
+        <script>
         // Get a reference to the filter button
         const filterButtons = document.querySelectorAll('.filter-btn');
         const menuItemsContainer = document.getElementById('menu-items');
@@ -351,11 +351,21 @@ https://www.tooplate.com/view/2126-antique-cafe
         // Initial loading of all menu items
         window.addEventListener('DOMContentLoaded', filterMenuItems);
       
-        
-        // Filter menu items
+ 
         function filterMenuItems(event) {
-          const selectedFilter = event.target.getAttribute('data-type');
-      
+        let targetElement = event.target;
+        
+        // Ensure that targetElement is the button
+        while (targetElement && (!(targetElement instanceof Element) || !targetElement.classList.contains('filter-btn'))) {
+            targetElement = targetElement.parentElement;
+        }
+
+        // Exit if the clicked element isn't inside the button
+        if (!targetElement) {
+            return;
+        }
+
+        const selectedFilter = targetElement.getAttribute('data-type');
           // Toggle selected button style
           filterButtons.forEach(function(button) {
             button.classList.remove('active');
@@ -375,6 +385,7 @@ https://www.tooplate.com/view/2126-antique-cafe
           });
         }
       </script>
+
 
     <script>
         var images = document.getElementsByClassName('image-class');
